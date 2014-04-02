@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2013-12-10T23:33:01Z",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "node/565442609",
+      "properties": {
+        "@id": "node/565442609",
+        "name": "Rodoviária",
+        "ref": "12345",
+        "highway": "bus_stop"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -38.5292431,
+          -13.0037539
+        ]
+      }
+    }
+  ]
+}
