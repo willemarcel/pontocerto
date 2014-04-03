@@ -22,10 +22,12 @@ def create_point(feature):
 
 
 def update_point(point, feature):
-    if point.nome != feature['properties'].get('name'):
+    if point.nome != feature['properties'].get('name') and \
+            feature['properties'].get('name') is not None:
         point.nome = feature['properties'].get('name')
 
-    if point.ref != feature['properties'].get('ref'):
+    if point.ref != feature['properties'].get('ref') and \
+            feature['properties'].get('ref') is not None:
         point.ref = feature['properties'].get('ref')
 
     if point.location != Point(feature['geometry']['coordinates']):
