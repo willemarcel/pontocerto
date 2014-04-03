@@ -16,7 +16,7 @@ class Ponto(models.Model):
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return self.id
+        return '%s' % self.id
 
 
 class Avaliacao(models.Model):
@@ -90,7 +90,7 @@ class Avaliacao(models.Model):
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return self.ponto.id
+        return 'Avaliação do Ponto %s' % self.ponto.id
 
     class Meta:
         verbose_name = "Avaliação"
