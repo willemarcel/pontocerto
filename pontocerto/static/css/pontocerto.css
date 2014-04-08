@@ -1,1 +1,14 @@
 /*! project specific CSS goes here. */
+
+body {
+  padding: 0;
+  margin: 0;
+  }
+
+html, body, #map {
+  height: 100%;
+  }
+
+#map {
+  margin-top: 50px;
+  }
