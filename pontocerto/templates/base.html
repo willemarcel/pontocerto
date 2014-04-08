@@ -1,12 +1,15 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}pontocerto{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'images/pontocerto.ico' %}">
+
 
     <!-- Le styles -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -21,25 +24,48 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/pontocerto.css' %}" rel="stylesheet">
 
     <!-- Use this to quickly test CSS changes in a template,
         then move to pontocerto.css -->
     {% block extra_css %}{% endblock extra_css %}
+
+    <!-- salvadorbus-master -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <style type="text/css">
+      body {  padding: 0; margin: 0;  }
+      html, body, #ssa-map {  height: 100%;  }
+      #ssa-map { margin-top: 50px; }
+    </style>
+    <script src="leaflet.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="points" type="application/json" href="ssa-busstop.geojson">
+
+
   </head>
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">pontocerto</a>
+          <a id="pontocerto-logo" href="#"><img src="{% static 'images/logo-mini.png' %}"></a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -51,15 +77,39 @@
       </div>
     </div>
 
-    <div class="container">
+    <!--<div class="container">-->
 
-      <h1>{% block page_title %}Example Base Template{% endblock page_title %}</h1>
+      <div id="ssa-map"></div>
+  <script>
+  var mapTiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  });
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+  $.getJSON($('link[rel="points"]').attr("href"), function(data) {
+    var geojson = L.geoJson(data, {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup('Este ponto existe?<p><a href="#approve">Sim</a> <a href="#disapprove">Não</a></p>');
+      }
+    });
+    var map = L.map('ssa-map').fitBounds(geojson.getBounds());
+    mapTiles.addTo(map);
+    geojson.addTo(map);
 
-    </div> <!-- /container -->
+    var popup = L.marker().bindPopup();
+
+    function onMapClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setPopupContent('Confirma adição de ponto de ônibus?<p><a href="#confirm">OK</a></p>')
+            .openPopup()
+            .addTo(map);
+    }
+
+map.on('click', onMapClick);
+  });
+  </script>
+
+    <!--</div><!-- /.container -->
 
     <!-- Le javascript
     ================================================== -->
