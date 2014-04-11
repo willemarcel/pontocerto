@@ -36,6 +36,7 @@
     {% block extra_css %}{% endblock extra_css %}
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'js/leaflet.js' %}"></script>
 
   </head>
@@ -71,6 +72,11 @@
         var mapTiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
+        var layer = L.geoJson();
+        map.addLayer(layer);
+        $.getJSON("data.geojson", function (data) {
+                layer.addData(data);
+                });
       </script>
     </div>
 
@@ -79,7 +85,7 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <!-- place project specific Javascript in this file -->
