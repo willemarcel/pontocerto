@@ -64,53 +64,53 @@
     </div>
 
     <!-- Sobre -->
-<div class="modal fade" id="sobre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Sobre o pontocerto</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Contato -->
-<div class="modal fade" id="contato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Contato pontocerto</h4>
-      </div>
-      <div class="modal-body">
-        ...
+    <div class="modal fade" id="sobre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Sobre o pontocerto</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-
+    <!-- Contato -->
+    <div class="modal fade" id="contato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Contato pontocerto</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--<div class="container">-->
-
     <div id="map"></div>
-      <script>
-        var map = L.map('map').setView([-12.9246, -38.4302], 12);
-        var mapTiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-        var layer = L.geoJson();
-        map.addLayer(layer);
-        $.getJSON("data.geojson", function (data) {
-                layer.addData(data);
-                });
-      </script>
-    </div>
+    <script>
+      var mapTiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      });
 
+      $.getJSON("data.geojson", function (data) {
+        var geojson = L.geoJson(data, {
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup('Ponto');
+          }
+        });
+        var map = L.map('map').setView([-12.9246, -38.4302], 12);
+        mapTiles.addTo(map);
+        geojson.addTo(map);
+      });
+    </script>
     <!--</div><!-- /.container -->
 
     <!-- Le javascript
