@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
+from .models import Ponto
+from .serializers import PontoSerializer
+
+
+class GeojsonPontoList(generics.ListCreateAPIView):
+    model = Ponto
+    serializer_class = PontoSerializer

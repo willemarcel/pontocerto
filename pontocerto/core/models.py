@@ -2,6 +2,7 @@
 
 from django.contrib.gis.db import models
 
+
 # Regra de instrospecção necessária para o South trabalhar com o GeoDjango
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^django\.contrib\.gis\.db\.models\.PointField"])
@@ -90,7 +91,7 @@ class Avaliacao(models.Model):
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return 'Avaliação do Ponto %s' % self.ponto.id
+        return 'Avaliação do Ponto %s' % self.ponto
 
     class Meta:
         verbose_name = "Avaliação"

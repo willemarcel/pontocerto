@@ -6,3 +6,5 @@ logutils==0.3.3
 South==0.8.2
 simplejson==3.3.3
 psycopg2==2.5.2
+djangorestframework==2.3.13
+djangorestframework-gis==0.2
