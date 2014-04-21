@@ -69,10 +69,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Sobre o pontocerto</h4>
+            <h4 class="modal-title" id="myModalLabel">Sobre o Ponto Certo</h4>
           </div>
           <div class="modal-body">
-            ...
+            <p><strong>Ponto Certo</strong> é um projeto de pesquisa com o objetivo é dar visibilidade às condições de
+            acessibilidades dos pontos de ônibus de Salvador através de dados georeferenciados, coletados a partir de
+            inspeções técnicas realizadas in loco e em parceria com o CREA-BA.
+            Este projeto é financiado pelo CNPQ.</p>
           </div>
         </div>
       </div>
@@ -107,7 +110,7 @@
             layer.bindPopup('<strong>Ponto ' + feature.id + '</strong>');
           }
         });
-        var map = L.map('map').setView([-12.9246, -38.4302], 12);
+        var map = L.map('map').setView([-12.9696, -38.4676], 13);
         mapTiles.addTo(map);
         geojson.addTo(map);
       });
