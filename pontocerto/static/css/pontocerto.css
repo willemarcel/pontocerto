@@ -12,3 +12,12 @@ html, body, #map {
     margin-top: 4px;
     margin-right: 4px;
 }
+
+#sobre .modal-body p {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #EEE;
+}
+
+#sobre .modal-body p:last-child {
+	border-bottom: none;
+}
