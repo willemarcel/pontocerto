@@ -16,7 +16,7 @@ class Ponto(models.Model):
     location = models.PointField()
     objects = models.GeoManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s' % self.id
 
 
@@ -90,7 +90,15 @@ class Avaliacao(models.Model):
     logradouro_desc = models.TextField("Justificativa Logradouro")
     objects = models.GeoManager()
 
-    def __unicode__(self):
+    #def final(self):
+        #resultado = [self.acesso, self.abrigo, self.piso, self.rampa,
+            #self.calcada, self.plataforma, self.transito, self.equipamento,
+            #self.identificacao, self.piso_tatil, self. linhas, self.logradouro]
+        #if resultado.count('favoravel') >= 4 and resultado.count('aceitavel') >= 4:
+            #return 'favoravel'
+        #elif resultado.count('favoravel') + resultado.count('aceitavel') >
+
+    def __str__(self):
         return 'Avaliação do Ponto %s' % self.ponto
 
     class Meta:

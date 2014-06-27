@@ -13,5 +13,5 @@ class CreatePontoTest(TestCase):
         ponto.save()
 
     def test_unicode(self):
-        self.assertEqual(Ponto.objects.get(osmid=123).__unicode__(),
+        self.assertEqual(Ponto.objects.get(osmid=123).__str__(),
                             str(Ponto.objects.get(osmid=123).id))

@@ -26,8 +26,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'pontocerto',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'wille',
+        'PASSWORD': 'wille',
         'HOST': 'localhost',
         'PORT': '',
     }
