@@ -122,15 +122,19 @@
 
     var circleIcon = L.icon({
         iconUrl: '{% static 'js/images/circle-20.png' %}',
-        iconRetinaUrl: '{% static 'js/images/circle-20.png' %}',
+        iconRetinaUrl: '{% static 'js/images/circle-20@2x.png' %}',
         iconSize: [20, 20],
         popupAnchor: [0, -8],
     });
 
+    function popupContent(id) {
+        return '<strong>Ponto ' + id + '</strong>'
+        }
+
       $.getJSON("{% url 'core:api_geojson_ponto_list' %}", function (data) {
         var geojson = L.geoJson(data, {
           pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {icon: circleIcon}).bindPopup('<strong>Ponto ' + feature.id + '</strong>');
+            return L.marker(latlng, {icon: circleIcon}).bindPopup(popupContent(feature.id));
           },
         });
         var map = L.map('map').setView([-12.9696, -38.4676], 13);
