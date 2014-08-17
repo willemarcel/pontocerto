@@ -2,7 +2,6 @@
 
 from django.contrib.gis.db import models
 
-
 # Regra de instrospecção necessária para o South trabalhar com o GeoDjango
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^django\.contrib\.gis\.db\.models\.PointField"])
@@ -90,13 +89,19 @@ class Avaliacao(models.Model):
     logradouro_desc = models.TextField("Justificativa Logradouro")
     objects = models.GeoManager()
 
-    #def final(self):
-        #resultado = [self.acesso, self.abrigo, self.piso, self.rampa,
-            #self.calcada, self.plataforma, self.transito, self.equipamento,
-            #self.identificacao, self.piso_tatil, self. linhas, self.logradouro]
-        #if resultado.count('favoravel') >= 4 and resultado.count('aceitavel') >= 4:
-            #return 'favoravel'
-        #elif resultado.count('favoravel') + resultado.count('aceitavel') >
+    def final(self):
+        resultado = [self.acesso, self.abrigo, self.piso, self.rampa,
+            self.calcada, self.plataforma, self.transito, self.equipamento,
+            self.identificacao, self.piso_tatil, self. linhas, self.logradouro]
+        pontuacao = resultado.count('favoravel') * 2 \
+            + resultado.count('aceitavel') * 1
+
+        if pontuacao >= 16:
+            return 'favoravel'
+        elif pontuacao >= 8:
+            return 'aceitavel'
+        else:
+            return 'critica'
 
     def __str__(self):
         return 'Avaliação do Ponto %s' % self.ponto
