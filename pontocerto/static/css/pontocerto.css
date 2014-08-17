@@ -2,22 +2,40 @@
 
 body {
   padding-top: 50px;
-  }
+}
 
 html, body, #map {
   height: 100%;
-  }
+}
 
-  #pontocerto-logo {
-    margin-top: 4px;
-    margin-right: 4px;
+.content{
+  height: 100%;
+  position: relative;
+}
+
+#pontocerto-logo {
+  margin-top: 4px;
+  margin-right: 4px;
 }
 
 #sobre .modal-body p {
-	padding-bottom: 15px;
-	border-bottom: 1px solid #EEE;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #EEE;
 }
 
 #sobre .modal-body p:last-child {
-	border-bottom: none;
+  border-bottom: none;
+}
+
+.instituicoes {
+  position: absolute;
+  float: left;
+  bottom: 0;
+  background: #FFF;
+  height: 70px;
+}
+
+.instituicoes img {
+  padding: 8px 4px 0 4px;
+  height: 60px;
 }
