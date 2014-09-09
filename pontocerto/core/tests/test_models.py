@@ -25,7 +25,7 @@ class CreateAvaliacaoTest(TestCase):
         avaliacao_favoravel = Avaliacao(ponto=ponto1, acesso='favoravel',
             abrigo='favoravel', piso='favoravel', rampa='favoravel',
             calcada='favoravel', plataforma='favoravel',
-            transito='favoravel', equipamento='favoravel',
+            transito='favoravel', equipamento='critica',
             identificacao='critica', piso_tatil='critica',
             linhas='critica', logradouro='critica')
         avaliacao_favoravel.save()
@@ -45,7 +45,7 @@ class CreateAvaliacaoTest(TestCase):
         avaliacao_critica = Avaliacao(ponto=ponto3, acesso='aceitavel',
             abrigo='aceitavel', piso='aceitavel', rampa='aceitavel',
             calcada='aceitavel', plataforma='aceitavel',
-            transito='aceitavel', equipamento='critica',
+            transito='critica', equipamento='critica',
             identificacao='critica', piso_tatil='critica',
             linhas='critica', logradouro='critica')
         avaliacao_critica.save()

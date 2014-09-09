@@ -96,9 +96,9 @@ class Avaliacao(models.Model):
         pontuacao = resultado.count('favoravel') * 2 \
             + resultado.count('aceitavel') * 1
 
-        if pontuacao >= 16:
+        if pontuacao >= 14:
             return 'favoravel'
-        elif pontuacao >= 8:
+        elif pontuacao >= 7:
             return 'aceitavel'
         else:
             return 'critica'
