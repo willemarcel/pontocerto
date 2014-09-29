@@ -119,42 +119,7 @@
       </div>
     </div>
 
-    <script>
-      var map = L.map('map').setView([-12.9696, -38.4676], 13);
-      var mapTiles = L.tileLayer('http://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
-        attribution: 'Maps &copy; <a href="http://www.thunderforest.com">Thunderforest</a>, \
-                     Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      });
-      mapTiles.addTo(map);
 
-    var markerIcon = L.icon({
-        iconUrl: '{% static 'js/images/marker-48.png' %}',
-        iconRetinaUrl: '{% static 'js/images/marker-48@2x.png' %}',
-        iconSize: [48, 48],
-        iconAnchor: [24, 42],
-        popupAnchor: [0, -30],
-    });
-
-    var circleIcon = L.icon({
-        iconUrl: '{% static 'js/images/circle-20.png' %}',
-        iconRetinaUrl: '{% static 'js/images/circle-20@2x.png' %}',
-        iconSize: [20, 20],
-        popupAnchor: [0, -8],
-    });
-
-    function popupContent(id) {
-        return '<strong>Ponto ' + id + '</strong>'
-        }
-
-      $.getJSON("{% url 'core:api_geojson_ponto_list' %}", function (data) {
-        var geojson = L.geoJson(data, {
-          pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {icon: circleIcon}).bindPopup(popupContent(feature.id));
-          },
-        });
-        geojson.addTo(map);
-      });
-    </script>
 
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/pontocerto.js' %}"></script>
