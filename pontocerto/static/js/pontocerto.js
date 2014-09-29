@@ -1,5 +1,6 @@
 /* Project specific Javascript goes here. */
 var data, geojson;
+
 var map = L.map('map').setView([-12.9696, -38.4676], 13);
 var mapTiles = L.tileLayer('http://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
   attribution: 'Maps &copy; <a href="http://www.thunderforest.com">Thunderforest</a>, \
@@ -42,6 +43,11 @@ var greenIcon = L.icon({
   iconSize: [15, 15],
   popupAnchor: [0, -8],
 });
+
+var layerNaoAvaliado = L.layerGroup([]);
+var layerCritica = L.layerGroup([]);
+var layerAceitavel = L.layerGroup([]);
+var layerFavoravel = L.layerGroup([]);
 
 function popupContent(id) {
   return '<strong>Ponto ' + id + '</strong>'
@@ -97,8 +103,26 @@ $.getJSON("core/pontos.geojson/?format=json", function (data) {
       return L.marker(latlng, {icon: greenIcon}).bindPopup(popupContent(feature.id));
     },
   });
-  nao_avaliado.addTo(map);
-  critica.addTo(map);
-  aceitavel.addTo(map);
-  favoravel.addTo(map);
+  nao_avaliado.addTo(layerNaoAvaliado);
+  critica.addTo(layerCritica);
+  aceitavel.addTo(layerAceitavel);
+  favoravel.addTo(layerFavoravel);
 });
+
+layerNaoAvaliado.addTo(map);
+layerCritica.addTo(map);
+layerAceitavel.addTo(map);
+layerFavoravel.addTo(map);
+
+var baseMaps = {
+  "Transporte Público": mapTiles,
+};
+
+var overlayMaps = {
+  "Avaliação Favorável": layerFavoravel,
+  "Avaliação Aceitável": layerAceitavel,
+  "Avaliação Crítica": layerCritica,
+  "Pontos ainda não avaliados": layerNaoAvaliado,
+};
+
+L.control.layers(baseMaps, overlayMaps, {collapsed: true}).addTo(map);
