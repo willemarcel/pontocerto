@@ -57,7 +57,7 @@ function resultado(avaliacao) {
         return '<span class="aceitavel">Aceitável</span>'
     }
     if (avaliacao == 'favoravel') {
-        return '<span class="favoravel">favoravel</span>'
+        return '<span class="favoravel">Favorável</span>'
     }
 }
 
