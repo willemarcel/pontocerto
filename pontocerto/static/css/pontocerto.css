@@ -39,3 +39,15 @@ html, body, #map {
   padding: 8px 4px 0 4px;
   height: 60px;
 }
+
+.favoravel {
+  color: #449d44;
+}
+
+.aceitavel {
+  color: #ec971f;
+}
+
+.critica {
+  color: #c9302c;
+}

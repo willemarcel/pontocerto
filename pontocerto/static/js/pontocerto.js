@@ -49,12 +49,36 @@ var layerCritica = L.layerGroup([]);
 var layerAceitavel = L.layerGroup([]);
 var layerFavoravel = L.layerGroup([]);
 
+function resultado(avaliacao) {
+    if (avaliacao == 'critica') {
+        return '<span class="critica">Crítica</span>'
+    }
+    if (avaliacao == 'aceitavel') {
+        return '<span class="aceitavel">Aceitável</span>'
+    }
+    if (avaliacao == 'favoravel') {
+        return '<span class="favoravel">favoravel</span>'
+    }
+}
+
 function popupSemAvaliacao(id) {
   return '<strong>Ponto ' + id + '</strong><p>Este ponto ainda não foi avaliado.</p>'
 }
 
 function popupContent(feature) {
-  html = '<p class="popup-title">Ponto ' + feature.id + '</p>';
+  html = '<p><strong>Ponto ' + feature.id + '</strong></p>';
+  html += '<p><strong>Avaliação Geral:</strong> ' + resultado(feature.properties.avaliacao.final) + '</p>';
+  html += '<strong>Acesso:</strong> ' + resultado(feature.properties.avaliacao.acesso) + '<br>';
+  html += '<strong>Abrigo:</strong> ' + resultado(feature.properties.avaliacao.abrigo) + '<br>';
+  html += '<strong>Piso:</strong> ' + resultado(feature.properties.avaliacao.piso) + '<br>';
+  html += '<strong>Rampa:</strong> ' + resultado(feature.properties.avaliacao.rampa) + '<br>';
+  html += '<strong>Calçada:</strong> ' + resultado(feature.properties.avaliacao.calcada) + '<br>';
+  html += '<strong>Plataforma:</strong> ' + resultado(feature.properties.avaliacao.plataforma) + '<br>';
+  html += '<strong>Trânsito:</strong> ' + resultado(feature.properties.avaliacao.transito) + '<br>';
+  html += '<strong>Equipamento:</strong> ' + resultado(feature.properties.avaliacao.equipamento) + '<br>';
+  html += '<strong>Identificação:</strong> ' + resultado(feature.properties.avaliacao.identificacao) + '<br>';
+  html += '<strong>Piso Tátil:</strong> ' + resultado(feature.properties.avaliacao.piso_tatil) + '<br>';
+  html += '<strong>Logradouro:</strong> ' + resultado(feature.properties.avaliacao.logradouro) + '<br>';
   return html;
 }
 
