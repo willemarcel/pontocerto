@@ -17,31 +17,31 @@ var markerIcon = L.icon({
 });
 
 var grayIcon = L.icon({
-  iconUrl: 'static/js/images/gray-24.png',
+  iconUrl: 'static/js/images/circle-gray-24@2x.png',
   iconRetinaUrl: 'static/js/images/gray-24@2x.png',
-  iconSize: [15, 15],
-  popupAnchor: [0, -8],
+  iconSize: [33, 33],
+  popupAnchor: [0, -12],
 });
 
 var redIcon = L.icon({
-  iconUrl: 'static/js/images/red-24.png',
-  iconRetinaUrl: 'static/js/images/red-24@2x.png',
-  iconSize: [15, 15],
-  popupAnchor: [0, -8],
+  iconUrl: 'static/js/images/circle-red-24@2x.png',
+  iconRetinaUrl: 'static/js/images/circle-red-24@2x.png',
+  iconSize: [33, 33],
+  popupAnchor: [0, -12],
 });
 
 var yellowIcon = L.icon({
-  iconUrl: 'static/js/images/yellow-24.png',
-  iconRetinaUrl: 'static/js/images/yellow-24@2x.png',
-  iconSize: [15, 15],
-  popupAnchor: [0, -8],
+  iconUrl: 'static/js/images/circle-yellow-24@2x.png',
+  iconRetinaUrl: 'static/js/images/circle-yellow-24@2x.png',
+  iconSize: [33, 33],
+  popupAnchor: [0, -12],
 });
 
 var greenIcon = L.icon({
-  iconUrl: 'static/js/images/green-24.png',
-  iconRetinaUrl: 'static/js/images/green-24@2x.png',
-  iconSize: [15, 15],
-  popupAnchor: [0, -8],
+  iconUrl: 'static/js/images/circle-green-24@2x.png',
+  iconRetinaUrl: 'static/js/images/circle-green-24@2x.png',
+  iconSize: [33, 33],
+  popupAnchor: [0, -12],
 });
 
 var layerNaoAvaliado = L.layerGroup([]);
@@ -49,17 +49,22 @@ var layerCritica = L.layerGroup([]);
 var layerAceitavel = L.layerGroup([]);
 var layerFavoravel = L.layerGroup([]);
 
-function popupContent(id) {
-  return '<strong>Ponto ' + id + '</strong>'
+function popupSemAvaliacao(id) {
+  return '<strong>Ponto ' + id + '</strong><p>Este ponto ainda não foi avaliado.</p>'
+}
+
+function popupContent(feature) {
+  html = '<p class="popup-title">Ponto ' + feature.id + '</p>';
+  return html;
 }
 
 $.getJSON("core/pontos.geojson/?format=json", function (data) {
   var geojson = L.geoJson(data, {
     pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, {icon: grayIcon}).bindPopup(popupContent(feature.id));
+      return L.marker(latlng, {icon: grayIcon});
     },
   });
-  
+
   var nao_avaliado = L.geoJson(data, {
     filter: function(feature, layer) {
         if (feature.properties.avaliacao == null) {
@@ -67,10 +72,10 @@ $.getJSON("core/pontos.geojson/?format=json", function (data) {
         }
     },
     pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, {icon: grayIcon}).bindPopup(popupContent(feature.id));
+      return L.marker(latlng, {icon: grayIcon}).bindPopup(popupSemAvaliacao(feature.id));
     },
   });
-  
+
   var critica = L.geoJson(data, {
     filter: function(feature, layer) {
         if (feature.properties.avaliacao != null && feature.properties.avaliacao.final == 'critica') {
@@ -78,10 +83,10 @@ $.getJSON("core/pontos.geojson/?format=json", function (data) {
         }
     },
     pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, {icon: redIcon}).bindPopup(popupContent(feature.id));
+      return L.marker(latlng, {icon: redIcon}).bindPopup(popupContent(feature));
     },
   });
-  
+
   var aceitavel = L.geoJson(data, {
     filter: function(feature, layer) {
         if (feature.properties.avaliacao != null && feature.properties.avaliacao.final == 'aceitavel') {
@@ -89,10 +94,10 @@ $.getJSON("core/pontos.geojson/?format=json", function (data) {
         }
     },
     pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, {icon: yellowIcon}).bindPopup(popupContent(feature.id));
+      return L.marker(latlng, {icon: yellowIcon}).bindPopup(popupContent(feature));
     },
   });
-  
+
   var favoravel = L.geoJson(data, {
     filter: function(feature, layer) {
         if (feature.properties.avaliacao != null && feature.properties.avaliacao.final == 'favoravel') {
@@ -100,7 +105,7 @@ $.getJSON("core/pontos.geojson/?format=json", function (data) {
         }
     },
     pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, {icon: greenIcon}).bindPopup(popupContent(feature.id));
+      return L.marker(latlng, {icon: greenIcon}).bindPopup(popupContent(feature));
     },
   });
   nao_avaliado.addTo(layerNaoAvaliado);
