@@ -3,7 +3,7 @@
 from django.test import TestCase
 from django.contrib.gis.geos import Point
 
-from ..models import Ponto, Avaliacao
+from ..models import Ponto, Avaliacao, Comentario
 
 
 class CreatePontoTest(TestCase):
@@ -50,10 +50,25 @@ class CreateAvaliacaoTest(TestCase):
             linhas='critica', logradouro='critica')
         avaliacao_critica.save()
 
-    def test_str(self):
+    def test_final(self):
         self.assertEqual(Avaliacao.objects.get(ponto__osmid=123).final(),
                             'favoravel')
         self.assertEqual(Avaliacao.objects.get(ponto__osmid=234).final(),
                             'aceitavel')
         self.assertEqual(Avaliacao.objects.get(ponto__osmid=345).final(),
                             'critica')
+
+
+class CreateComentarioTest(TestCase):
+
+    def setUp(self):
+        ponto = Ponto(osmid=123, location=Point(1.34, 2.45))
+        ponto.save()
+
+        comentario = Comentario(nome="teste", email="a@b.com", ponto=ponto,
+             conteudo="teste ponto certo")
+        comentario.save()
+
+    def test_creation(self):
+        self.assertEqual(Comentario.objects.get(nome="teste").__str__(),
+            "Comentário 1")

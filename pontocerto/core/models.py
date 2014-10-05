@@ -109,3 +109,15 @@ class Avaliacao(models.Model):
     class Meta:
         verbose_name = "Avaliação"
         verbose_name_plural = "Avaliações"
+
+
+class Comentario(models.Model):
+
+    nome = models.CharField(max_length=100)
+    email = models.EmailField()
+    data = models.DateTimeField(auto_now_add=True)
+    ponto = models.ForeignKey(Ponto)
+    conteudo = models.TextField()
+
+    def __str__(self):
+        return 'Comentário %s' % self.id
