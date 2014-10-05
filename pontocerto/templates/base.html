@@ -108,15 +108,17 @@
     </div>
 
     <div class="content">
-      <div id="map"></div>
+      {% block content %}
+        <div id="map"></div>
 
-      <div class="instituicoes">
-        <a href="http://cnpq.br/"><img src="{% static 'images/logo-cnpq.png' %}" alt="Logo CNPq" title="Conselho Nacional de Desenvolvimento Científico e Tecnológico"></a>
-        <a href="http://www.ufrb.edu.br"><img src="{% static 'images/logo-ufrb.png' %}" alt="Logo UFRB" title="Universidade Federal do Recôncavo da Bahia"></a>
-        <a href="http://www.uneb.br"><img src="{% static 'images/logo-uneb.png' %}" alt="Logo UNEB" title="Universidade do Estado da Bahia"></a>
-        <a href="http://www.ufba.br"><img src="{% static 'images/logo-ufba.png' %}" alt="Logo UFBA" title="Universidade Federal da Bahia"></a>
-        <a href="http://www.creaba.org.br/"><img src="{% static 'images/logo-creaba.png' %}" alt="Logo CREA-BA" title="Conselho Regional de Engenharia e Agronomia da Bahia"></a>
-      </div>
+        <div class="instituicoes">
+          <a href="http://cnpq.br/"><img src="{% static 'images/logo-cnpq.png' %}" alt="Logo CNPq" title="Conselho Nacional de Desenvolvimento Científico e Tecnológico"></a>
+          <a href="http://www.ufrb.edu.br"><img src="{% static 'images/logo-ufrb.png' %}" alt="Logo UFRB" title="Universidade Federal do Recôncavo da Bahia"></a>
+          <a href="http://www.uneb.br"><img src="{% static 'images/logo-uneb.png' %}" alt="Logo UNEB" title="Universidade do Estado da Bahia"></a>
+          <a href="http://www.ufba.br"><img src="{% static 'images/logo-ufba.png' %}" alt="Logo UFBA" title="Universidade Federal da Bahia"></a>
+          <a href="http://www.creaba.org.br/"><img src="{% static 'images/logo-creaba.png' %}" alt="Logo CREA-BA" title="Conselho Regional de Engenharia e Agronomia da Bahia"></a>
+        </div>
+      {% endblock content %}
     </div>
 
 
