@@ -29,10 +29,9 @@ html, body, #map {
 
 .instituicoes {
   position: absolute;
-  float: left;
   bottom: 0;
   background: #FFF;
-  height: 70px;
+  height: 85px;
 }
 
 .instituicoes img {

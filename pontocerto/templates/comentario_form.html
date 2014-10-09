@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Comente - Ponto Certo{% endblock %}
+
+{% block page_title %}Comente - Ponto Certo{% endblock page_title %}
+
+{% block content %}
+  <form action="{% url 'core:colabore' %}" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Enviar" />
+  </form>
+{% endblock content %}
