@@ -2,11 +2,14 @@
 var data, geojson;
 
 var map = L.map('map').setView([-12.9696, -38.4676], 13);
-var mapTiles = L.tileLayer('http://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
+var transport = L.tileLayer('http://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
   attribution: 'Maps &copy; <a href="http://www.thunderforest.com">Thunderforest</a>, \
                Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 });
-mapTiles.addTo(map);
+var osm = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+});
+transport.addTo(map);
 
 var markerIcon = L.icon({
   iconUrl: 'static/js/images/marker-48.png',
@@ -144,7 +147,8 @@ layerAceitavel.addTo(map);
 layerFavoravel.addTo(map);
 
 var baseMaps = {
-  "Transporte Público": mapTiles,
+  "OSM Transporte Público": transport,
+  "OSM Padrão": osm,
 };
 
 var overlayMaps = {
