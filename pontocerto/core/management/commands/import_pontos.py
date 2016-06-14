@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-import simplejson
+import json
 
 from django.core.management.base import BaseCommand
 from django.contrib.gis.geos import Point
@@ -9,8 +8,10 @@ from ...models import Ponto
 
 
 def create_point(feature):
-    point = Ponto(osmid=feature.get('id').split('/')[-1],
-                    location=Point(feature['geometry'].get('coordinates')))
+    point = Ponto(
+        osmid=feature.get('id').split('/')[-1],
+        location=Point(feature['geometry'].get('coordinates'))
+        )
 
     if feature['properties'].get('name') is not None:
         point.name = feature['properties'].get('name')
@@ -22,12 +23,12 @@ def create_point(feature):
 
 
 def update_point(point, feature):
-    if point.nome != feature['properties'].get('name') and \
-            feature['properties'].get('name') is not None:
+    if (point.nome != feature['properties'].get('name') and
+            feature['properties'].get('name') is not None):
         point.nome = feature['properties'].get('name')
 
-    if point.ref != feature['properties'].get('ref') and \
-            feature['properties'].get('ref') is not None:
+    if (point.ref != feature['properties'].get('ref') and
+            feature['properties'].get('ref') is not None):
         point.ref = feature['properties'].get('ref')
 
     if point.location != Point(feature['geometry']['coordinates']):
@@ -43,14 +44,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for filename in args:
             data_json = open(filename, 'r').read()
-            data = simplejson.loads(data_json)
+            data = json.loads(data_json)
 
             for feature in data['features']:
-                if feature['properties'].get('highway') == 'bus_stop' and \
-                        feature['geometry'].get('type') == 'Point':
+                if (feature['properties'].get('highway') == 'bus_stop' and
+                        feature['geometry'].get('type') == 'Point'):
                     try:
-                        point = Ponto.objects.get(osmid=
-                                            feature.get('id').split('/')[-1])
+                        point = Ponto.objects.get(
+                            osmid=feature.get('id').split('/')[-1]
+                            )
                         update_point(point, feature)
                     except Ponto.DoesNotExist:
                         create_point(feature)

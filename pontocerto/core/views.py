@@ -1,9 +1,9 @@
-from rest_framework import generics
+from rest_framework.generics import ListAPIView
 
 from .models import Ponto
 from .serializers import PontoSerializer
 
 
-class GeojsonPontoList(generics.ListCreateAPIView):
-    model = Ponto
+class GeojsonPontoList(ListAPIView):
+    queryset = Ponto.objects.all()
     serializer_class = PontoSerializer

@@ -2,10 +2,6 @@
 
 from django.contrib.gis.db import models
 
-# Regra de instrospecção necessária para o South trabalhar com o GeoDjango
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^django\.contrib\.gis\.db\.models\.PointField"])
-
 
 class Ponto(models.Model):
 
