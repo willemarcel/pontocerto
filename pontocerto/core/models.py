@@ -7,7 +7,7 @@ class Ponto(models.Model):
 
     nome = models.CharField(max_length=100, blank=True)
     ref = models.CharField(max_length=15, blank=True)
-    osmid = models.CharField(max_length=15, unique=True)
+    osmid = models.CharField(max_length=15, blank=True)
     location = models.PointField()
     objects = models.GeoManager()
 

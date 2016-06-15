@@ -8,9 +8,15 @@ html, body, #map {
   height: 100%;
 }
 
-.content{
+.content {
   height: 100%;
   position: relative;
+}
+
+.content-form {
+  width: 800px;
+  position: relative;
+  left: 190px
 }
 
 #pontocerto-logo {

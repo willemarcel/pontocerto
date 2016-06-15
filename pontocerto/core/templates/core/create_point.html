@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Ponto Certo - Adicionar novo ponto de ônibus{% endblock title %}
+
+{% block content %}
+  <div class="content-form">
+    <h2>Adicionar novo ponto</h2>
+      <form action="{% url 'core:create-point' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar" class="btn btn-default">
+      </form>
+  </div>
+{% endblock content %}
