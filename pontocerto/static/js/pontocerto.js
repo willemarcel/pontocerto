@@ -66,13 +66,13 @@ function resultado(avaliacao) {
 
 function edit_links(user_authenticated, id, avaliacao_id) {
   if (user_authenticated) {
-    ponto_link = 'http://pontocerto.org/admin/core/ponto/' + id + '/change/';
-    avaliacao_link = 'http://pontocerto.org/admin/core/avaliacao/' + avaliacao_id + '/change/';
+    ponto_link = '/admin/core/ponto/' + id + '/change/';
+    avaliacao_link = '/admin/core/avaliacao/' + avaliacao_id + '/change/';
     result = '<a href="' + ponto_link + '">Editar Ponto</a>';
     if (avaliacao_id !== undefined) {
       result += ' / <a href="' + avaliacao_link + '">Editar Avaliação</a>';
     } else {
-      result += ' / <a href="http://localhost:8000/admin/core/avaliacao/add/?ponto=' + id + '">Criar Avaliação</a>';
+      result += ' / <a href="/admin/core/avaliacao/add/?ponto=' + id + '">Criar Avaliação</a>';
     }
     return result;
   } else {
