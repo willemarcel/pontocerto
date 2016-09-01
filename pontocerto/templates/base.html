@@ -135,6 +135,11 @@
 
       ga('create', 'UA-55654826-1', 'auto');
       ga('send', 'pageview');
+      {% if request.user.is_authenticated %}
+        var user_authenticated = true;
+      {% else %}
+        var user_authenticated = false;
+      {% endif %}
     </script>
 
     {% block extra_js %}{% endblock extra_js %}

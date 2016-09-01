@@ -2,9 +2,9 @@
 var data, geojson;
 
 var map = L.map('map').setView([-12.9696, -38.4676], 13);
-var transport = L.tileLayer('http://a.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
-  attribution: 'Maps &copy; <a href="http://www.thunderforest.com">Thunderforest</a>, \
-               Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+var transport = L.tileLayer(
+  'https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=422f3e97354c48968b3e39068c4fbcea', {
+    attribution: 'Maps &copy; <a href="http://www.thunderforest.com">Thunderforest</a>, Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 });
 var osm = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -54,18 +54,32 @@ var layerFavoravel = L.layerGroup([]);
 
 function resultado(avaliacao) {
     if (avaliacao == 'critica') {
-        return '<span class="critica">Crítica</span>'
+        return '<span class="critica">Crítica</span>';
     }
     if (avaliacao == 'aceitavel') {
-        return '<span class="aceitavel">Aceitável</span>'
+        return '<span class="aceitavel">Aceitável</span>';
     }
     if (avaliacao == 'favoravel') {
-        return '<span class="favoravel">Favorável</span>'
+        return '<span class="favoravel">Favorável</span>';
     }
 }
 
+function edit_links(user_authenticated, id, avaliacao_id) {
+  if (user_authenticated) {
+    ponto_link = 'http://pontocerto.org/admin/core/ponto/' + id + '/change/';
+    avaliacao_link = 'http://pontocerto.org/admin/core/avaliacao/' + avaliacao_id + '/change/';
+    result = '<a href="' + ponto_link + '">Editar Ponto</a>';
+    if (avaliacao_id !== undefined) {
+      result += ' / <a href="' + avaliacao_link + '">Editar Avaliação</a>';
+    }
+    return result;
+  } else {
+    return '';
+  }
+}
+
 function popupSemAvaliacao(id) {
-  return '<strong>Ponto ' + id + '</strong><p>Este ponto ainda não foi avaliado.</p>'
+  return '<strong>Ponto ' + id + '</strong><p>Este ponto ainda não foi avaliado.</p>' + edit_links(user_authenticated, id);
 }
 
 function popupContent(feature) {
@@ -82,6 +96,7 @@ function popupContent(feature) {
   html += '<strong>Identificação:</strong> ' + resultado(feature.properties.avaliacao.identificacao) + '<br>';
   html += '<strong>Piso Tátil:</strong> ' + resultado(feature.properties.avaliacao.piso_tatil) + '<br>';
   html += '<strong>Logradouro:</strong> ' + resultado(feature.properties.avaliacao.logradouro) + '<br>';
+  html += edit_links(user_authenticated, feature.id, feature.properties.avaliacao.id);
   return html;
 }
 

@@ -12,7 +12,7 @@ class AvaliacaoSerializer(ModelSerializer):
         fields = (
             'acesso', 'abrigo', 'piso', 'rampa', 'calcada', 'plataforma',
             'transito', 'equipamento', 'identificacao', 'piso_tatil',
-            'linhas', 'logradouro', 'final'
+            'linhas', 'logradouro', 'final', 'id',
             )
 
 
@@ -22,4 +22,4 @@ class PontoSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = Ponto
         geo_field = "location"
-        fields = ('id', 'nome', 'osmid', 'avaliacao')
+        fields = ('id', 'nome', 'avaliacao')
