@@ -71,6 +71,8 @@ function edit_links(user_authenticated, id, avaliacao_id) {
     result = '<a href="' + ponto_link + '">Editar Ponto</a>';
     if (avaliacao_id !== undefined) {
       result += ' / <a href="' + avaliacao_link + '">Editar Avaliação</a>';
+    } else {
+      result += ' / <a href="http://localhost:8000/admin/core/avaliacao/add/?ponto=' + id + '">Criar Avaliação</a>';
     }
     return result;
   } else {
