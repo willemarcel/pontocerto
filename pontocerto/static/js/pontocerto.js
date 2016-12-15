@@ -51,6 +51,7 @@ var layerNaoAvaliado = L.layerGroup([]);
 var layerCritica = L.layerGroup([]);
 var layerAceitavel = L.layerGroup([]);
 var layerFavoravel = L.layerGroup([]);
+var layerBacias = L.layerGroup([]);
 
 function resultado(avaliacao) {
     if (avaliacao == 'critica') {
@@ -158,6 +159,23 @@ $.getJSON("core/pontos.geojson/?format=json", function (data) {
   favoravel.addTo(layerFavoravel);
 });
 
+function polyPopup(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties) {
+        layer.bindPopup('<strong>' + feature.properties.name + '</strong><br>' + feature.properties.points + ' pontos');
+    }
+}
+
+$.getJSON("https://gist.githubusercontent.com/willemarcel/b2fd7da3738a3b7cb4216764396a2cb7/raw/77721417ce6e34ecc028391aead0a503a5e1a44f/map.geojson", function (data) {
+  var bacias = L.geoJson(data, {
+    style: function (feature) {
+        return {'fillColor': feature.properties.color, 'fillOpacity': 0.4, 'opacity': 0};
+    },
+    onEachFeature: polyPopup,
+  });
+  bacias.addTo(layerBacias);
+});
+
 layerNaoAvaliado.addTo(map);
 layerCritica.addTo(map);
 layerAceitavel.addTo(map);
@@ -169,6 +187,7 @@ var baseMaps = {
 };
 
 var overlayMaps = {
+  "Áreas de Operação": layerBacias,
   "Avaliação Favorável": layerFavoravel,
   "Avaliação Aceitável": layerAceitavel,
   "Avaliação Crítica": layerCritica,
